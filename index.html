@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Guest House Ana · Zadar — Soba s pogledom na svjetlo</title>
+<meta name="description" content="Guest House Ana, Zadar — svijetle sobe i apartmani, domaći doručak i osobni domaćin, na korak od Starog grada, Morskih orgulja i najljepšeg zalaska sunca na svijetu." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --off:#FBFAF7; --off-2:#F2EFE9; --ink:#1C2733; --ink-soft:#54616E;
+    --sea:#1E6E8C; --sea-deep:#155469; --amber:#E0A04A; --amber-deep:#C9842B;
+    --line:#E4E0D7; --white:#FFFFFF;
+    --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--sans);background:var(--off);color:var(--ink);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,.serif{font-family:var(--serif);font-weight:500;line-height:1.06}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 36px}
+  .eyebrow{font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--sea);font-weight:600}
+  section{position:relative}
+
+  /* Header */
+  header{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:22px 36px;transition:.4s}
+  header.scrolled{background:rgba(251,250,247,.94);backdrop-filter:blur(12px);padding:14px 36px;box-shadow:0 1px 0 var(--line)}
+  header .logo{font-family:var(--serif);font-size:1.45rem;font-weight:600;color:#fff;transition:.4s;letter-spacing:.01em}
+  header.scrolled .logo{color:var(--ink)}
+  nav.desk{display:flex;gap:32px}
+  nav.desk a{font-size:.82rem;color:rgba(255,255,255,.92);transition:.3s;font-weight:400}
+  header.scrolled nav.desk a{color:var(--ink-soft)}
+  nav.desk a:hover{color:var(--amber)}
+  .cta-row{display:flex;gap:10px;align-items:center}
+  .btn{font-size:.78rem;letter-spacing:.04em;font-weight:500;padding:12px 22px;border-radius:40px;cursor:pointer;border:1.5px solid transparent;transition:.3s;display:inline-block}
+  .btn-solid{background:var(--amber);color:#1c2733;border-color:var(--amber)}
+  .btn-solid:hover{background:var(--amber-deep);border-color:var(--amber-deep)}
+  .btn-out{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+  header.scrolled .btn-out{color:var(--ink);border-color:var(--line)}
+  .btn-out:hover{background:#fff;color:var(--ink);border-color:#fff}
+  header.scrolled .btn-out:hover{background:var(--sea);color:#fff;border-color:var(--sea)}
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:6px}
+  .menu-toggle span{width:24px;height:2px;background:#fff;transition:.3s;border-radius:2px}
+  header.scrolled .menu-toggle span{background:var(--ink)}
+
+  /* Hero fade slider */
+  .hero{height:100svh;min-height:620px;position:relative;overflow:hidden}
+  .hero-swiper,.hero-swiper .swiper-wrapper,.hero-swiper .swiper-slide{height:100%}
+  .hero-slide{position:relative;height:100%;background-size:cover;background-position:center;overflow:hidden}
+  .hero-slide::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(15,28,40,.6),rgba(15,28,40,.1) 45%,rgba(15,28,40,.32))}
+  .kb{position:absolute;inset:-6%;background-size:cover;background-position:center}
+  .swiper-slide-active .kb{animation:kenburns 7s ease-out forwards}
+  @keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.14)}}
+  .hero-overlay{position:absolute;z-index:5;inset:0;display:flex;align-items:center;pointer-events:none}
+  .hero-overlay .wrap{width:100%}
+  .hero-overlay .inner{max-width:660px;color:#fff;pointer-events:auto}
+  .hero-overlay .eyebrow{color:#fff;opacity:.9}
+  .hero-overlay h1{font-size:clamp(2.8rem,7.5vw,6rem);color:#fff;margin:1rem 0 1.2rem;font-weight:500;line-height:1.02}
+  .hero-overlay p{font-size:clamp(1.02rem,1.5vw,1.25rem);color:rgba(255,255,255,.92);max-width:44ch}
+  .hero-overlay .hero-cta{display:flex;gap:14px;margin-top:2rem;flex-wrap:wrap}
+  .hero-overlay .btn-solid{padding:15px 30px}
+  .hero-overlay .btn-out{padding:15px 30px}
+  .hero-pag{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:10px}
+  .hero-pag .bullet{width:30px;height:3px;background:rgba(255,255,255,.4);border-radius:3px;cursor:pointer;transition:.4s}
+  .hero-pag .bullet.active{background:var(--amber);width:48px}
+
+  /* Reveals */
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* Manifest strip */
+  .manifest{padding:120px 0;text-align:center;background:var(--off)}
+  .manifest .wrap{max-width:920px}
+  .manifest h2{font-size:clamp(2rem,4.4vw,3.4rem);margin-top:1.2rem;font-weight:500}
+  .manifest h2 i{font-style:italic;color:var(--sea)}
+  .manifest p{margin-top:1.6rem;color:var(--ink-soft);font-size:1.08rem;max-width:62ch;margin-left:auto;margin-right:auto}
+  .stats{display:flex;justify-content:center;gap:60px;margin-top:54px;flex-wrap:wrap}
+  .stats .s{display:flex;flex-direction:column;gap:4px}
+  .stats .s .n{font-family:var(--serif);font-size:2.6rem;color:var(--sea);font-weight:600}
+  .stats .s .l{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+
+  /* Parallax band */
+  .band{height:64vh;min-height:420px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center}
+  .band .pbg{position:absolute;inset:-12% 0;background:url('https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=2000&q=80') center/cover;will-change:transform}
+  .band::after{content:"";position:absolute;inset:0;background:rgba(15,28,40,.42)}
+  .band .bq{position:relative;z-index:3;color:#fff;max-width:760px;padding:0 36px}
+  .band .bq p{font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.3}
+  .band .bq span{display:block;margin-top:1.4rem;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;opacity:.85;font-family:var(--sans)}
+
+  /* Rooms — alternating rows */
+  .rooms{padding:120px 0}
+  .rooms .head{text-align:center;max-width:680px;margin:0 auto 80px}
+  .rooms .head h2{font-size:clamp(2.2rem,4.6vw,3.5rem);margin-top:1rem;font-weight:500}
+  .rooms .head p{color:var(--ink-soft);margin-top:1rem}
+  .room-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:96px}
+  .room-row:last-child{margin-bottom:0}
+  .room-row.rev .r-media{order:2}
+  .r-media{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/3}
+  .r-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.3s cubic-bezier(.16,.8,.2,1)}
+  .room-row:hover .r-media img{transform:scale(1.05)}
+  .r-media .badge{position:absolute;top:18px;left:18px;background:var(--amber);color:#1c2733;font-size:.72rem;font-weight:600;letter-spacing:.05em;padding:7px 14px;border-radius:30px}
+  .r-text .cap{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sea);font-weight:600}
+  .r-text h3{font-size:clamp(1.9rem,3.4vw,2.7rem);margin:.5rem 0 1rem;font-weight:500}
+  .r-text p{color:var(--ink-soft);margin-bottom:1.5rem;max-width:48ch}
+  .r-text .amen{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.8rem}
+  .r-text .amen span{font-size:.78rem;color:var(--ink-soft);background:var(--off-2);padding:7px 14px;border-radius:30px}
+  .r-text .row-foot{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+  .r-text .price{font-family:var(--serif);font-size:1.7rem;font-weight:600}
+  .r-text .price small{font-family:var(--sans);font-size:.78rem;color:var(--ink-soft);font-weight:400}
+
+  /* Ana host */
+  .ana{padding:120px 0;background:var(--off-2)}
+  .ana .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center}
+  .ana .portrait{border-radius:6px;overflow:hidden;aspect-ratio:5/4}
+  .ana .portrait img{width:100%;height:100%;object-fit:cover}
+  .ana h2{font-size:clamp(2rem,4vw,3.1rem);margin:1.1rem 0 1.4rem;font-weight:500}
+  .ana p{color:var(--ink-soft);margin-bottom:1.1rem;font-size:1.04rem}
+  .ana .sign{font-family:var(--serif);font-style:italic;font-size:1.9rem;margin-top:1.4rem;color:var(--sea)}
+
+  /* Zadar do */
+  .zadar{padding:120px 0}
+  .zadar .head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:54px}
+  .zadar .head h2{font-size:clamp(2.2rem,4.6vw,3.4rem);font-weight:500}
+  .zadar .head p{max-width:42ch;color:var(--ink-soft)}
+  .zadar .items{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .z-card{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:3/4;display:flex;align-items:flex-end;color:#fff}
+  .z-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.1s ease;z-index:1}
+  .z-card:hover img{transform:scale(1.08)}
+  .z-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(15,28,40,.82),transparent 60%);z-index:2}
+  .z-card .zc-body{position:relative;z-index:3;padding:30px}
+  .z-card .num{font-size:.74rem;letter-spacing:.2em;color:var(--amber)}
+  .z-card h3{font-size:1.6rem;margin:.4rem 0 .5rem;font-weight:500}
+  .z-card p{font-size:.9rem;color:rgba(255,255,255,.85)}
+
+  /* Usluge */
+  .usluge{padding:120px 0;background:var(--sea-deep);color:#fff}
+  .usluge .head{text-align:center;max-width:680px;margin:0 auto 60px}
+  .usluge .head .eyebrow{color:var(--amber)}
+  .usluge .head h2{font-size:clamp(2rem,4.4vw,3.2rem);margin-top:1rem;color:#fff;font-weight:500}
+  .usluge .head p{color:rgba(255,255,255,.78);margin-top:1rem}
+  .u-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+  .u-card{border:1px solid rgba(255,255,255,.16);border-radius:6px;padding:34px 28px;transition:.3s}
+  .u-card:hover{background:rgba(255,255,255,.06)}
+  .u-card .ico{font-size:1.8rem;margin-bottom:14px}
+  .u-card h3{font-size:1.3rem;margin-bottom:.6rem;color:#fff;font-weight:500}
+  .u-card p{font-size:.9rem;color:rgba(255,255,255,.74)}
+
+  /* Gallery horizontal drag */
+  .gallery{padding:120px 0 120px}
+  .gallery .head{max-width:680px;margin:0 auto 48px;text-align:center}
+  .gallery .head h2{font-size:clamp(2.2rem,4.6vw,3.4rem);margin-top:1rem;font-weight:500}
+  .gallery .head p{color:var(--ink-soft);margin-top:.8rem}
+  .h-scroll{display:flex;gap:20px;overflow-x:auto;padding:6px 36px 26px;cursor:grab;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .h-scroll.drag{cursor:grabbing}
+  .h-scroll::-webkit-scrollbar{height:6px}
+  .h-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+  .h-scroll figure{flex:0 0 auto;width:380px;height:480px;border-radius:6px;overflow:hidden;scroll-snap-align:center}
+  .h-scroll figure img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+  .gallery .hint{text-align:center;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:18px}
+
+  /* Location */
+  .location{padding:120px 0;background:var(--off-2)}
+  .location .grid{display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:center}
+  .location h2{font-size:clamp(2rem,4vw,3.1rem);margin:1rem 0 1.3rem;font-weight:500}
+  .location p{color:var(--ink-soft);margin-bottom:1rem}
+  .location .addr{margin-top:1.5rem;line-height:2;font-size:.96rem}
+  .location .addr a{color:var(--sea);font-weight:500}
+  .location .map{border-radius:6px;overflow:hidden;box-shadow:0 20px 50px rgba(28,39,51,.12)}
+  .location .map iframe{width:100%;height:440px;border:0}
+
+  /* Footer */
+  footer{background:var(--ink);color:rgba(255,255,255,.8)}
+  .fcta{padding:120px 0;text-align:center;border-bottom:1px solid rgba(255,255,255,.1)}
+  .fcta h2{font-size:clamp(2.4rem,5.5vw,4.2rem);color:#fff;margin:1.2rem 0 1.3rem;font-weight:500}
+  .fcta p{color:rgba(255,255,255,.72);max-width:54ch;margin:0 auto 2.4rem;font-size:1.06rem}
+  .fcta .eyebrow{color:var(--amber)}
+  .fcta .btn-solid{padding:16px 38px}
+  .fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;padding:70px 0 40px}
+  .fgrid .logo{font-family:var(--serif);font-size:1.7rem;color:#fff;margin-bottom:1rem;font-weight:600}
+  .fgrid p,.fgrid a{color:rgba(255,255,255,.7);font-size:.92rem;line-height:1.95}
+  .fgrid h4{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+  .fgrid a:hover{color:var(--amber)}
+  .copy{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:26px 0 50px;font-size:.78rem;color:rgba(255,255,255,.55);border-top:1px solid rgba(255,255,255,.1)}
+
+  /* Mobile booking bar */
+  .mobile-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;background:#fff;border-top:1px solid var(--line);padding:10px 14px;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.06)}
+  .mobile-bar a{flex:1;text-align:center;padding:14px;border-radius:40px;font-size:.82rem;font-weight:500}
+  .mobile-bar .mb-call{background:var(--off-2);color:var(--ink)}
+  .mobile-bar .mb-book{background:var(--amber);color:#1c2733}
+
+  @media(max-width:980px){
+    .room-row,.ana .grid,.location .grid{grid-template-columns:1fr;gap:40px}
+    .room-row.rev .r-media{order:0}
+    .zadar .items{grid-template-columns:1fr 1fr}
+    .u-grid{grid-template-columns:1fr 1fr}
+    .ana .portrait{max-width:520px;margin:0 auto}
+    .fgrid{grid-template-columns:1fr}
+  }
+  @media(max-width:760px){
+    nav.desk,.cta-row .btn{display:none}
+    .menu-toggle{display:flex}
+    .mobile-bar{display:flex}
+    body{padding-bottom:66px}
+    .wrap{padding:0 22px}
+    header{padding:16px 22px}
+    .zadar .items,.u-grid{grid-template-columns:1fr}
+    .h-scroll figure{width:280px;height:380px}
+    .h-scroll{padding-left:22px;padding-right:22px}
+    .location .map iframe{height:340px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+    .swiper-slide-active .kb{animation:none}
+    .band .pbg{transform:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <a href="#top" class="logo">Guest House Ana</a>
+  <nav class="desk">
+    <a href="#sobe">Sobe</a>
+    <a href="#ana">O nama</a>
+    <a href="#zadar">Zadar</a>
+    <a href="#usluge">Usluge</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <div class="cta-row">
+    <a class="btn btn-out" href="#kontakt">Upit</a>
+    <a class="btn btn-solid" href="tel:+385913421889">Rezerviraj</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Izbornik"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="swiper hero-swiper" id="heroSwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><div class="hero-slide"><div class="kb" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2000&q=80')"></div></div></div>
+      <div class="swiper-slide"><div class="hero-slide"><div class="kb" style="background-image:url('https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=2000&q=80')"></div></div></div>
+      <div class="swiper-slide"><div class="hero-slide"><div class="kb" style="background-image:url('https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=2000&q=80')"></div></div></div>
+      <div class="swiper-slide"><div class="hero-slide"><div class="kb" style="background-image:url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=2000&q=80')"></div></div></div>
+    </div>
+  </div>
+  <div class="hero-overlay">
+    <div class="wrap"><div class="inner">
+      <span class="eyebrow">Guest House · Zadar</span>
+      <h1>Probudite se uz svjetlo Jadrana.</h1>
+      <p>Obiteljski smještaj u srcu Zadra — svijetle sobe, domaći doručak i domaćica koja vas dočeka kao staru poznanicu.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#sobe">Pogledaj sobe</a>
+        <a class="btn btn-out" href="tel:+385913421889">Nazovi Anu</a>
+      </div>
+    </div></div>
+  </div>
+  <div class="hero-pag" id="heroPag"></div>
+</section>
+
+<section class="manifest">
+  <div class="wrap reveal">
+    <span class="eyebrow">Dobrodošli kući</span>
+    <h2>Mali guest house gdje vas se <i>pamti po imenu</i>, a Zadar postaje vaš.</h2>
+    <p>Bez gužve hotelskog lobija i bezličnih hodnika. Kod Ane dobijete ključ, savjet i osjećaj da ste stigli na pravo mjesto — na nekoliko minuta hoda od mora, kamenih ulica i najljepšeg zalaska sunca na svijetu.</p>
+    <div class="stats">
+      <div class="s"><span class="n">4</span><span class="l">Sobe i apartmani</span></div>
+      <div class="s"><span class="n">5 min</span><span class="l">Do Starog grada</span></div>
+      <div class="s"><span class="n">4</span><span class="l">Jezika domaćina</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="pbg" id="bandBg"></div>
+  <div class="bq reveal">
+    <p>„More u Zadru ne gledaš — slušaš ga, kroz orgulje od kamena."</p>
+    <span>Vaš prvi dan kod nas</span>
+  </div>
+</section>
+
+<section class="rooms" id="sobe">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Smještaj</span>
+      <h2>Sobe i apartmani s imenom</h2>
+      <p>Svaki prostor uređen je s pažnjom i nosi komadić Zadra u svom imenu.</p>
+    </div>
+
+    <div class="room-row reveal">
+      <div class="r-media"><span class="badge">Dvokrevetna soba</span><img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=80" alt="Soba Maslina" /></div>
+      <div class="r-text">
+        <span class="cap">01 · Soba</span><h3>Maslina</h3>
+        <p>Topli zemljani tonovi i jutarnje svjetlo koje pada na zid. Mirna soba okrenuta prema uličici, savršena za par koji traži tišinu.</p>
+        <div class="amen"><span>2 osobe</span><span>Klima</span><span>Privatna kupaonica</span><span>Wi‑Fi</span></div>
+        <div class="row-foot"><span class="price">€72 <small>/ noć</small></span><a class="btn btn-solid" href="#kontakt">Provjeri dostupnost</a></div>
+      </div>
+    </div>
+
+    <div class="room-row rev reveal">
+      <div class="r-media"><span class="badge">Dvokrevetna soba</span><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80" alt="Soba More" /></div>
+      <div class="r-text">
+        <span class="cap">02 · Soba</span><h3>More</h3>
+        <p>Svijetla i prozračna soba u nijansama jadranske plave, s malim balkonom za jutarnju kavu i večernji zrak s mora.</p>
+        <div class="amen"><span>2 osobe</span><span>Balkon</span><span>Klima</span><span>Wi‑Fi</span></div>
+        <div class="row-foot"><span class="price">€82 <small>/ noć</small></span><a class="btn btn-solid" href="#kontakt">Provjeri dostupnost</a></div>
+      </div>
+    </div>
+
+    <div class="room-row reveal">
+      <div class="r-media"><span class="badge">Apartman · 1 spavaća</span><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80" alt="Apartman Riva" /></div>
+      <div class="r-text">
+        <span class="cap">03 · Apartman</span><h3>Riva</h3>
+        <p>Vlastita kuhinjica i blagovaonica za one koji ostaju dulje. Dom u gradu za par ili malu obitelj koja voli svoj ritam.</p>
+        <div class="amen"><span>2–3 osobe</span><span>Kuhinja</span><span>Klima</span><span>Wi‑Fi</span></div>
+        <div class="row-foot"><span class="price">€105 <small>/ noć</small></span><a class="btn btn-solid" href="#kontakt">Provjeri dostupnost</a></div>
+      </div>
+    </div>
+
+    <div class="room-row rev reveal">
+      <div class="r-media"><span class="badge">Obiteljski apartman</span><img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80" alt="Apartman Kalelarga" /></div>
+      <div class="r-text">
+        <span class="cap">04 · Apartman</span><h3>Kalelarga</h3>
+        <p>Naš najprostraniji smještaj, nazvan po čuvenoj zadarskoj ulici. Dvije spavaće sobe za obitelj ili dvije generacije zajedno.</p>
+        <div class="amen"><span>4 osobe</span><span>2 spavaće</span><span>Kuhinja</span><span>Wi‑Fi</span></div>
+        <div class="row-foot"><span class="price">€140 <small>/ noć</small></span><a class="btn btn-solid" href="#kontakt">Provjeri dostupnost</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ana" id="ana">
+  <div class="wrap">
+    <div class="grid">
+      <div class="portrait reveal"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1100&q=80" alt="Ana, vaša domaćica" /></div>
+      <div class="reveal">
+        <span class="eyebrow">O nama · Ana</span>
+        <h2>Vaša domaćica u Zadru.</h2>
+        <p>Zovem se Ana i Zadar je moj cijeli život. Pretvorila sam našu obiteljsku kuću u mjesto gdje se gosti osjećaju kao prijatelji koji su navratili — ne kao brojevi sobe.</p>
+        <p>Najviše volim kad mi na odlasku kažete da ste otkrili „svoj" Zadar: onu kavanu, onu plažu, onaj zalazak koji nije u vodiču. Za to sam tu — da podijelim grad onakvim kakvim ga ja volim.</p>
+        <p>Dočekat ću vas osobno, pokazati vam sobu i ostaviti svoj broj. Za sve.</p>
+        <div class="sign">— Ana</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="zadar" id="zadar">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><span class="eyebrow">Vaš Zadar</span><h2>Što ne propustiti</h2></div>
+      <p>Sve na korak od kuće. Ana će vam rado nacrtati svoju verziju karte grada.</p>
+    </div>
+    <div class="items">
+      <div class="z-card reveal"><img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=80" alt="Stari grad Zadra" />
+        <div class="zc-body"><span class="num">01</span><h3>Stari grad</h3><p>Rimski forum, sv. Donat i ulice uglačane stoljećima. Izgubite se namjerno.</p></div></div>
+      <div class="z-card reveal"><img src="https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=900&q=80" alt="Morske orgulje" />
+        <div class="zc-body"><span class="num">02</span><h3>Morske orgulje</h3><p>More svira kroz kamene stube. Sjednite i pustite da vas valovi odsviraju.</p></div></div>
+      <div class="z-card reveal"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=900&q=80" alt="Zalazak sunca" />
+        <div class="zc-body"><span class="num">03</span><h3>Najljepši zalazak</h3><p>Hitchcock ga je nazvao najljepšim na svijetu. Vjerujemo mu svake večeri.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="usluge" id="usluge">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Što je uključeno</span>
+      <h2>Usluge koje čine razliku</h2>
+      <p>Sitnice po kojima ćete pamtiti boravak kod Ane.</p>
+    </div>
+    <div class="u-grid">
+      <div class="u-card reveal"><div class="ico">🥐</div><h3>Domaći doručak</h3><p>Svježi kruh, domaća marmelada, jaja, sezonsko voće i prava kava — svako jutro.</p></div>
+      <div class="u-card reveal"><div class="ico">🗺️</div><h3>Osobni domaćin</h3><p>Preporuke za restorane, plaže i skrivene kutke — od Ane, ne iz brošure.</p></div>
+      <div class="u-card reveal"><div class="ico">🚗</div><h3>Transfer</h3><p>Organiziramo prijevoz s aerodroma ili trajektne luke na vaš zahtjev.</p></div>
+      <div class="u-card reveal"><div class="ico">📶</div><h3>Mir i Wi‑Fi</h3><p>Brzi internet, klima u svakoj sobi i tiha noć — zajamčeno.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Atmosfera</span><h2>Pogled iznutra</h2><p>Povucite za listanje — kroz sobe, kutke i svjetlo naše kuće.</p></div>
+  </div>
+  <div class="h-scroll" id="hScroll">
+    <figure><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=80" alt="Interijer" /></figure>
+    <figure><img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=900&q=80" alt="Spavaća soba" /></figure>
+    <figure><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80" alt="Kuća izvana" /></figure>
+    <figure><img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=900&q=80" alt="Kupaonica" /></figure>
+    <figure><img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=900&q=80" alt="Doručak" /></figure>
+    <figure><img src="https://images.unsplash.com/photo-1522444195799-478538b28823?auto=format&fit=crop&w=900&q=80" alt="Kutak za kavu" /></figure>
+    <figure><img src="https://images.unsplash.com/photo-1556784344-ad913c73cfc4?auto=format&fit=crop&w=900&q=80" alt="Detalj" /></figure>
+  </div>
+  <div class="hint">← povucite →</div>
+</section>
+
+<section class="location" id="lokacija">
+  <div class="wrap">
+    <div class="grid">
+      <div class="reveal">
+        <span class="eyebrow">Gdje smo</span>
+        <h2>Na korak od svega.</h2>
+        <p>Smješteni smo u mirnoj zoni Zadra, s lakim pristupom Starom gradu pješice i parkingom u blizini. More, kava i kamene ulice — na nekoliko minuta hoda.</p>
+        <p>Javite nam se i poslat ćemo vam točne upute za dolazak i parkiranje.</p>
+        <div class="addr">
+          <strong>Guest House Ana</strong><br>
+          Zadar, Hrvatska<br>
+          <a href="tel:+385913421889">+385 913 421 889</a>
+        </div>
+      </div>
+      <div class="map reveal">
+        <iframe src="https://maps.google.com/maps?q=Guest+House+Ana+Zadar&output=embed" loading="lazy" title="Karta — Guest House Ana, Zadar"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="kontakt">
+  <div class="wrap">
+    <div class="fcta reveal">
+      <span class="eyebrow">Rezervacije</span>
+      <h2>Dođite nam u goste.</h2>
+      <p>Provjerite slobodne termine i dopustite Ani da pripremi vašu sobu. Javljamo se isti dan — na hrvatskom, engleskom, njemačkom ili talijanskom.</p>
+      <a class="btn btn-solid" href="tel:+385913421889">Rezerviraj · +385 913 421 889</a>
+    </div>
+    <div class="fgrid">
+      <div>
+        <div class="logo">Guest House Ana</div>
+        <p>Obiteljski guest house u srcu Zadra. Svijetle sobe, domaći doručak i topla dobrodošlica — odsjednite kao naš gost.</p>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <p><a href="tel:+385913421889">+385 913 421 889</a><br>Zadar, Hrvatska</p>
+      </div>
+      <div>
+        <h4>Sadržaj</h4>
+        <p><a href="#sobe">Sobe i apartmani</a><br><a href="#ana">O nama</a><br><a href="#zadar">Otkrij Zadar</a><br><a href="#usluge">Usluge</a></p>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© 2026 Guest House Ana · Zadar</span>
+      <span>Dobrodošli · Welcome · Willkommen · Benvenuti</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="mb-call" href="tel:+385913421889">Nazovi</a>
+  <a class="mb-book" href="#kontakt">Rezerviraj</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Lenis
+  let lenis;
+  if(!reduce){
+    lenis = new Lenis({lerp:0.2, wheelMultiplier:1, smoothWheel:true, syncTouch:false});
+    function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    if(window.gsap && window.ScrollTrigger){
+      gsap.registerPlugin(ScrollTrigger);
+      lenis.on('scroll',ScrollTrigger.update);
+      gsap.ticker.add(t=>lenis.raf(t*1000));
+      gsap.ticker.lagSmoothing(0);
+    }
+  }
+
+  // Anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const id=a.getAttribute('href');
+      if(id.length>1 && document.querySelector(id)){
+        e.preventDefault();
+        if(lenis) lenis.scrollTo(id,{offset:-10}); else document.querySelector(id).scrollIntoView();
+      }
+    });
+  });
+
+  // Header state
+  const header=document.getElementById('header');
+  const onScroll=()=>{ header.classList.toggle('scrolled',window.scrollY>60); };
+  window.addEventListener('scroll',onScroll); onScroll();
+
+  // Hero fade swiper + custom bullets
+  const heroSwiper=new Swiper('#heroSwiper',{
+    effect:'fade', fadeEffect:{crossFade:true}, speed:1100, loop:true,
+    autoplay: reduce ? false : { delay:4600, disableOnInteraction:false },
+    allowTouchMove:false
+  });
+  const pag=document.getElementById('heroPag');
+  const realSlides=4;
+  for(let i=0;i<realSlides;i++){ const b=document.createElement('div'); b.className='bullet'+(i===0?' active':''); b.addEventListener('click',()=>heroSwiper.slideToLoop(i)); pag.appendChild(b); }
+  heroSwiper.on('slideChange',()=>{ const idx=heroSwiper.realIndex; pag.querySelectorAll('.bullet').forEach((b,i)=>b.classList.toggle('active',i===idx)); });
+
+  // Parallax band
+  if(!reduce && window.gsap){
+    gsap.to('#bandBg',{ yPercent:18, ease:'none', scrollTrigger:{ trigger:'.band', start:'top bottom', end:'bottom top', scrub:true }});
+  }
+
+  // Reveals
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+  },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Horizontal drag gallery
+  const hs=document.getElementById('hScroll');
+  let down=false,startX,scrollLeft;
+  hs.addEventListener('mousedown',e=>{ down=true; hs.classList.add('drag'); startX=e.pageX-hs.offsetLeft; scrollLeft=hs.scrollLeft; });
+  window.addEventListener('mouseup',()=>{ down=false; hs.classList.remove('drag'); });
+  hs.addEventListener('mouseleave',()=>{ down=false; hs.classList.remove('drag'); });
+  hs.addEventListener('mousemove',e=>{ if(!down)return; e.preventDefault(); const x=e.pageX-hs.offsetLeft; hs.scrollLeft=scrollLeft-(x-startX)*1.6; });
+
+  // Mobile menu -> jump to rooms
+  const mt=document.getElementById('menuToggle');
+  mt&&mt.addEventListener('click',()=>{ if(lenis)lenis.scrollTo('#sobe'); else document.querySelector('#sobe').scrollIntoView(); });
+</script>
+</body>
+</html>
